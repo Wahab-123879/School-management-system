@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard - School Management System</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Dashboard</h1>
+      <button id="logoutBtn">Logout</button>
+    </header>
+
+    <main>
+      <section>
+        <h2 id="welcome">Welcome</h2>
+        <p>This is a minimal dashboard for the demo School Management System.</p>
+
+        <div class="cards">
+          <div class="card">
+            <h3>Students</h3>
+            <p>View and manage students (placeholder)</p>
+          </div>
+          <div class="card">
+            <h3>Teachers</h3>
+            <p>View and manage teachers (placeholder)</p>
+          </div>
+          <div class="card">
+            <h3>Classes</h3>
+            <p>View and manage classes (placeholder)</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Protect page: redirect to login if not authenticated
+      (function() {
+        const user = localStorage.getItem('sms_user');
+        if (!user) {
+          location.href = 'login.html';
+          return;
+        }
+        const welcome = document.getElementById('welcome');
+        try {
+          const obj = JSON.parse(user);
+          welcome.textContent = `Welcome, ${obj.username} (${obj.role})`;
+        } catch (e) {
+          welcome.textContent = 'Welcome';
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+          localStorage.removeItem('sms_user');
+          location.href = 'login.html';
+        });
+      })();
+    </script>
+  </body>
+</html>
